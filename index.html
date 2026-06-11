@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eugène Pascal Yaro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #0a0a0a;
+  --paper:   #f5f0e8;
+  --paper2:  #ede8dc;
+  --paper3:  #e3ddd0;
+  --cream:   #faf7f2;
+  --accent:  #c8391a;
+  --accent2: #1a4dc8;
+  --gold:    #b8860b;
+  --muted:   #6b6560;
+  --rule:    #c5bfb2;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--ink);
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 52px;
+  border-bottom: 3px solid var(--accent);
+}
+.masthead-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: #888;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.masthead-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+.masthead-title em { color: var(--accent); font-style: normal; }
+.masthead-nav {
+  display: flex; gap: 20px; justify-content: flex-end;
+}
+.masthead-nav a {
+  font-size: 11px; color: #888; text-decoration: none;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+.masthead-nav a:hover { color: #fff; }
+
+/* ── SECTIONS ── */
+section { position: relative; z-index: 1; }
+
+/* ── ISSUE TICKER ── */
+.ticker {
+  margin-top: 52px;
+  background: var(--accent);
+  padding: 7px 0;
+  overflow: hidden;
+}
+.ticker-inner {
+  display: flex; gap: 60px;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+@keyframes ticker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+.ticker-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: #fff;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.ticker-item::before { content: '◆'; font-size: 8px; color: rgba(255,255,255,0.5); }
+
+/* ── COVER ── */
+#cover {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.cover-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 64px 48px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 0;
+}
+.cover-left { padding-right: 48px; border-right: 1px solid var(--rule); }
+.cover-issue-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px;
+}
+.cover-issue-label::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--accent); }
+
+.cover-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.cover-headline .hl { color: var(--accent); }
+.cover-headline .sc { font-size: 0.55em; vertical-align: middle; font-weight: 700; }
+
+.cover-deck {
+  font-size: 18px; font-weight: 300; color: var(--muted);
+  line-height: 1.6; max-width: 560px;
+  margin-bottom: 36px;
+  border-left: 3px solid var(--accent);
+  padding-left: 20px;
+}
+
+.cover-byline {
+  display: flex; align-items: center; gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+.cover-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.cover-byline-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+.cover-byline-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--muted); margin-top: 2px;
+}
+
+.cover-right { padding-left: 40px; display: flex; flex-direction: column; gap: 0; }
+.cover-sidebar-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--rule);
+}
+.cover-toc-item {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none; color: var(--ink);
+}
+.cover-toc-item:hover { color: var(--accent); }
+.cover-toc-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 900;
+  color: var(--paper3); line-height: 1;
+  flex-shrink: 0; width: 36px;
+  transition: color 0.2s;
+}
+.cover-toc-item:hover .cover-toc-num { color: var(--accent); }
+.cover-toc-title { font-size: 13px; font-weight: 500; line-height: 1.3; }
+.cover-toc-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.cover-stats {
+  margin-top: 28px;
+  background: var(--ink);
+  padding: 20px;
+}
+.cover-stats-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #888; margin-bottom: 14px;
+}
+.cover-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cs-item { }
+.cs-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900; color: #fff; line-height: 1;
+}
+.cs-val sup { font-size: 14px; color: var(--accent); }
+.cs-lbl { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+
+/* ── ARTICLE SECTIONS ── */
+.article-header {
+  max-width: 1200px; margin: 0 auto;
+  padding: 56px 48px 0;
+}
+.art-section-label {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 6px;
+}
+.art-section-label::before { content: '§'; font-size: 14px; }
+.art-section-label::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--accent); }
+.art-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 900; line-height: 1;
+  letter-spacing: -0.02em; color: var(--ink);
+  margin-bottom: 20px;
+}
+.art-rule { height: 2px; background: var(--ink); margin-bottom: 0; }
+.art-rule-thin { height: 1px; background: var(--rule); margin: 0 48px; }
+
+/* ── PROFIL ARTICLE ── */
+#profil { background: var(--paper); }
+.profil-columns {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px 56px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+}
+.profil-main p {
+  font-size: 16px; line-height: 1.85; color: var(--ink);
+  margin-bottom: 20px; font-weight: 300;
+}
+.profil-main p strong { font-weight: 500; color: var(--ink); }
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; font-weight: 900;
+  float: left; line-height: 0.8;
+  margin: 8px 10px 0 0;
+  color: var(--accent);
+}
+.pull-quote {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px 0;
+  margin: 28px 0;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-style: italic;
+  line-height: 1.4; color: var(--ink);
+  margin: 0 !important;
+}
+.pull-quote cite {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em;
+  color: var(--muted); display: block;
+  margin-top: 10px; text-transform: uppercase;
+}
+
+.profil-sidebar { border-left: 1px solid var(--rule); padding-left: 36px; }
+.sidebar-box {
+  background: var(--ink);
+  padding: 20px;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.sidebar-box-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.sidebar-box-item {
+  font-size: 13px; padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 8px;
+  color: #ccc;
+}
+.sidebar-box-item:last-child { border-bottom: none; }
+.sidebar-box-item .sico { color: var(--accent); font-size: 14px; }
+
+.timeline-mini { margin-top: 24px; }
+.tm-item {
+  display: flex; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.tm-year {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--accent);
+  flex-shrink: 0; width: 38px; padding-top: 2px;
+}
+.tm-content { font-size: 13px; line-height: 1.5; }
+.tm-co { font-weight: 500; color: var(--ink); }
+.tm-role { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+/* ── FORMATIONS ── */
+#formations { background: var(--paper2); }
+.formations-grid {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px 56px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.edu-col {
+  padding: 0 28px;
+  border-right: 1px solid var(--rule);
+}
+.edu-col:first-child { padding-left: 0; }
+.edu-col:last-child { border-right: none; }
+.edu-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px; font-weight: 900;
+  color: var(--paper3); line-height: 1;
+  margin-bottom: 8px;
+}
+.edu-year-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; background: var(--ink); color: #fff;
+  padding: 3px 9px; margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+.edu-degree { font-size: 16px; font-weight: 500; line-height: 1.3; margin-bottom: 6px; color: var(--ink); }
+.edu-school { font-size: 13px; color: var(--accent); margin-bottom: 10px; font-style: italic; }
+.edu-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.cert-strip {
+  background: var(--accent);
+  max-width: 1200px; margin: 0 auto;
+  padding: 20px 48px;
+  display: flex; align-items: center; gap: 24px;
+}
+.cert-strip-ico { font-size: 28px; }
+.cert-strip-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); margin-bottom: 3px;
+}
+.cert-strip-name { font-size: 16px; font-weight: 500; color: #fff; }
+.cert-strip-issuer {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px;
+}
+
+/* ── EXPERIENCES ── */
+#experiences { background: var(--cream); }
+.exp-feature {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px 56px;
+}
+.exp-feature-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  padding: 36px 0;
+}
+.exp-feature-item:last-child { border-bottom: 1px solid var(--rule); }
+.exp-left { padding-right: 32px; border-right: 1px solid var(--rule); }
+.exp-co-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 900;
+  color: var(--ink); line-height: 1; margin-bottom: 6px;
+}
+.exp-co-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.exp-period-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; background: var(--ink); color: #fff;
+  padding: 3px 9px; margin-bottom: 10px;
+}
+.exp-loc { font-size: 12px; color: var(--muted); font-style: italic; }
+.exp-right { padding-left: 40px; }
+.exp-role-badge {
+  display: inline-flex; align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent2); border: 1px solid var(--accent2);
+  padding: 3px 10px; margin-bottom: 14px;
+}
+.exp-intro-text {
+  font-size: 15px; font-weight: 300; line-height: 1.75;
+  color: var(--ink); margin-bottom: 20px;
+  border-left: 2px solid var(--accent); padding-left: 16px;
+}
+.exp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 18px; }
+.exp-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+  padding-bottom: 6px; border-bottom: 1px solid var(--rule);
+}
+.exp-col ul { list-style: none; }
+.exp-col ul li {
+  font-size: 13px; color: var(--ink); line-height: 1.5;
+  padding: 4px 0 4px 14px; position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.exp-col ul li:last-child { border-bottom: none; }
+.exp-col ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 6px; }
+
+.exp-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.exp-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; padding: 3px 8px;
+  background: var(--paper2); border: 1px solid var(--rule);
+  color: var(--muted); letter-spacing: 0.04em;
+  transition: all 0.15s;
+}
+.exp-tag:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ── COMPÉTENCES ── */
+#competences { background: var(--paper); }
+.comp-layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px 56px;
+}
+.comp-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0;
+}
+.comp-cat {
+  padding: 0 24px;
+  border-right: 1px solid var(--rule);
+}
+.comp-cat:first-child { padding-left: 0; }
+.comp-cat:last-child { border-right: none; }
+.comp-cat-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 16px;
+}
+.comp-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+}
+.comp-item:last-child { border-bottom: none; }
+.comp-name { color: var(--ink); font-weight: 400; }
+.comp-dots { display: flex; gap: 3px; }
+.comp-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); }
+.comp-dot.fill { background: var(--ink); }
+
+/* ── SOFT SKILLS ── */
+#softskills { background: var(--ink); }
+.soft-layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 56px 48px;
+}
+.soft-layout .art-section-label { color: var(--accent); }
+.soft-layout .art-section-label::after { background: var(--accent); }
+.soft-layout .art-title { color: #fff; }
+.soft-layout .art-rule { background: rgba(255,255,255,0.15); margin-bottom: 36px; }
+.soft-grid-mag {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.08);
+}
+.soft-mag-item {
+  background: var(--ink);
+  padding: 32px 28px;
+  transition: background 0.2s;
+}
+.soft-mag-item:hover { background: #141414; }
+.soft-mag-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 900;
+  color: rgba(255,255,255,0.07); line-height: 1;
+  margin-bottom: 12px;
+}
+.soft-mag-title { font-size: 16px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+.soft-mag-desc { font-size: 13px; color: #888; line-height: 1.65; font-weight: 300; }
+.soft-mag-icon { font-size: 22px; margin-bottom: 12px; display: block; }
+
+/* ── HOBBIES ── */
+#hobbies { background: var(--paper2); }
+.hobbies-mag {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px 56px;
+}
+.hobbies-masonry {
+  columns: 3; column-gap: 24px;
+}
+.hobby-block {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+.hobby-block:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+.hobby-block.featured {
+  background: var(--ink); color: #fff;
+}
+.hobby-block-icon { font-size: 36px; display: block; margin-bottom: 14px; }
+.hobby-block-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.hobby-block.featured .hobby-block-name { color: #fff; }
+.hobby-block-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.hobby-block.featured .hobby-block-desc { color: #aaa; }
+.hobby-block-tag {
+  display: inline-block; margin-top: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); border-bottom: 1px solid var(--accent);
+  padding-bottom: 1px;
+}
+.hobby-block.featured .hobby-block-tag { color: #fff; border-color: #fff; }
+
+/* ── CONTACT ── */
+#contact { background: var(--paper); }
+.contact-spread {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px 64px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start;
+}
+.contact-editorial h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 900;
+  letter-spacing: -0.02em; line-height: 1.1;
+  margin-bottom: 20px; color: var(--ink);
+}
+.contact-editorial h3 em { color: var(--accent); font-style: normal; }
+.contact-editorial p {
+  font-size: 15px; color: var(--muted); line-height: 1.75;
+  font-weight: 300; margin-bottom: 32px;
+}
+.contact-info-block {
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 2px solid var(--ink);
+}
+.ci-row {
+  display: flex; align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: var(--ink);
+  transition: all 0.2s;
+  font-size: 14px;
+}
+.ci-row:hover { color: var(--accent); padding-left: 6px; }
+.ci-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); width: 100px; flex-shrink: 0;
+}
+.ci-val { font-weight: 500; }
+
+.contact-poster {
+  background: var(--ink);
+  padding: 40px;
+  position: relative; overflow: hidden;
+}
+.contact-poster::before {
+  content: 'HIRE\A ME';
+  white-space: pre;
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 90px; font-weight: 900;
+  color: rgba(255,255,255,0.04);
+  top: -10px; right: -20px;
+  line-height: 0.9;
+  pointer-events: none;
+}
+.cp-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 20px;
+}
+.cp-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900; color: #fff;
+  line-height: 1; margin-bottom: 6px;
+}
+.cp-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; color: #888; margin-bottom: 28px;
+}
+.cp-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 20px 0; }
+.cp-row {
+  display: flex; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+}
+.cp-row:last-child { border-bottom: none; }
+.cp-key { color: #666; font-family: 'DM Mono', monospace; font-size: 11px; }
+.cp-value { color: #ccc; }
+.cp-value.green { color: #4ade80; }
+.cp-value.blue { color: #60a5fa; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  border-top: 3px solid var(--accent);
+  padding: 24px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 900; color: #fff;
+}
+.footer-logo em { color: var(--accent); font-style: normal; }
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: #555; letter-spacing: 0.08em;
+}
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.1s; } .rd2 { transition-delay: 0.2s; }
+.rd3 { transition-delay: 0.3s; } .rd4 { transition-delay: 0.4s; }
+
+@media (max-width: 960px) {
+  .cover-inner, .profil-columns, .contact-spread { grid-template-columns: 1fr; }
+  .cover-right, .profil-sidebar { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 32px; margin-top: 32px; }
+  .formations-grid, .comp-grid { grid-template-columns: 1fr 1fr; }
+  .soft-grid-mag { grid-template-columns: 1fr 1fr; }
+  .hobbies-masonry { columns: 2; }
+  .exp-feature-item { grid-template-columns: 1fr; }
+  .exp-left { border-right: none; padding-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 20px; margin-bottom: 20px; }
+  .exp-right { padding-left: 0; }
+  .masthead { padding: 0 24px; }
+  .article-header, .profil-columns, .formations-grid, .cert-strip,
+  .exp-feature, .comp-layout, .soft-layout, .hobbies-mag, .contact-spread { padding-left: 24px; padding-right: 24px; }
+}
+@media (max-width: 600px) {
+  .formations-grid, .comp-grid, .soft-grid-mag, .exp-cols { grid-template-columns: 1fr; }
+  .hobbies-masonry { columns: 1; }
+  .cover-headline { font-size: 44px; }
+  .masthead-nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-date">Vol. I · Nº 2025 · Édition Digitale</div>
+  <div class="masthead-title">DEVOPS<em>·</em>REVIEW</div>
+  <nav class="masthead-nav">
+    <a href="#profil">Profil</a>
+    <a href="#experiences">XP</a>
+    <a href="#competences">Skills</a>
+    <a href="#hobbies">Hobbies</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Kubernetes / OpenShift</span>
+    <span class="ticker-item">Jenkins · ArgoCD · GitOps</span>
+    <span class="ticker-item">Terraform · Ansible</span>
+    <span class="ticker-item">DevSecOps · PCI-DSS</span>
+    <span class="ticker-item">Prometheus · Grafana</span>
+    <span class="ticker-item">Java Quarkus · Python · Bash</span>
+    <span class="ticker-item">Hybrid Cloud · Mainframe</span>
+    <span class="ticker-item">🇫🇷 Français · 🇬🇧 Anglais · 🇪🇸 Espagnol</span>
+    <span class="ticker-item">Kubernetes / OpenShift</span>
+    <span class="ticker-item">Jenkins · ArgoCD · GitOps</span>
+    <span class="ticker-item">Terraform · Ansible</span>
+    <span class="ticker-item">DevSecOps · PCI-DSS</span>
+    <span class="ticker-item">Prometheus · Grafana</span>
+    <span class="ticker-item">Java Quarkus · Python · Bash</span>
+    <span class="ticker-item">Hybrid Cloud · Mainframe</span>
+    <span class="ticker-item">🇫🇷 Français · 🇬🇧 Anglais · 🇪🇸 Espagnol</span>
+  </div>
+</div>
+
+<!-- ══ COVER ══ -->
+<section id="cover">
+  <div class="cover-inner">
+    <div class="cover-left reveal">
+      <div class="cover-issue-label">Numéro spécial · Ingénieur DevOps</div>
+      <h1 class="cover-headline">
+        EUGÈNE<br>PASCAL<br><span class="hl">YARO</span><span class="sc"> ↗</span>
+      </h1>
+      <p class="cover-deck">
+        Ingénieur DevOps spécialisé en Cloud Native, Kubernetes/OpenShift et CI/CD.
+        5+ ans sur des environnements critiques — d'Amadeus à IBM, de Nice à Dakar.
+      </p>
+      <div class="cover-byline">
+        <div class="cover-avatar">👨🏾‍💻</div>
+        <div>
+          <div class="cover-byline-name">Eugène Pascal Yaro</div>
+          <div class="cover-byline-role">$ ingenieur.devops · saint-laurent-du-var, france</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-right reveal rd2">
+      <div class="cover-sidebar-label">Sommaire</div>
+      <a href="#profil" class="cover-toc-item">
+        <span class="cover-toc-num">01</span>
+        <div><div class="cover-toc-title">Profil &amp; Parcours</div><div class="cover-toc-sub">Portrait d'un ingénieur cloud-native</div></div>
+      </a>
+      <a href="#formations" class="cover-toc-item">
+        <span class="cover-toc-num">02</span>
+        <div><div class="cover-toc-title">Formations</div><div class="cover-toc-sub">Télécom Saint-Étienne · IUT Clermont</div></div>
+      </a>
+      <a href="#experiences" class="cover-toc-item">
+        <span class="cover-toc-num">03</span>
+        <div><div class="cover-toc-title">Expériences</div><div class="cover-toc-sub">Amadeus · IBM · Orange Sonatel</div></div>
+      </a>
+      <a href="#competences" class="cover-toc-item">
+        <span class="cover-toc-num">04</span>
+        <div><div class="cover-toc-title">Compétences techniques</div><div class="cover-toc-sub">Stack complète cloud-native</div></div>
+      </a>
+      <a href="#softskills" class="cover-toc-item">
+        <span class="cover-toc-num">05</span>
+        <div><div class="cover-toc-title">Compétences humaines</div><div class="cover-toc-sub">Ce qui fait la différence</div></div>
+      </a>
+      <a href="#hobbies" class="cover-toc-item">
+        <span class="cover-toc-num">06</span>
+        <div><div class="cover-toc-title">Hobbies</div><div class="cover-toc-sub">En dehors du terminal</div></div>
+      </a>
+      <div class="cover-stats">
+        <div class="cover-stats-label">En chiffres</div>
+        <div class="cover-stats-grid">
+          <div class="cs-item"><div class="cs-val">5<sup>+</sup></div><div class="cs-lbl">ans XP</div></div>
+          <div class="cs-item"><div class="cs-val">3</div><div class="cs-lbl">entreprises</div></div>
+          <div class="cs-item"><div class="cs-val">3</div><div class="cs-lbl">langues</div></div>
+          <div class="cs-item"><div class="cs-val">∞</div><div class="cs-lbl">pipelines</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROFIL ══ -->
+<section id="profil">
+  <div class="article-header reveal">
+    <div class="art-section-label">Section 01</div>
+    <h2 class="art-title">Profil</h2>
+    <div class="art-rule"></div>
+  </div>
+  <div class="profil-columns">
+    <div class="profil-main reveal">
+      <p class="drop-cap">
+        Ingénieur DevOps avec plus de <strong>5 ans d'expérience</strong> sur des environnements cloud-native critiques, je me suis spécialisé dans l'industrialisation des déploiements, l'automatisation des infrastructures et l'intégration des pratiques DevSecOps au cœur des pipelines de livraison.
+      </p>
+      <p>
+        Mon parcours m'a conduit de la chaîne de réservation mondiale d'<strong>Amadeus</strong> — l'un des systèmes les plus critiques du secteur aérien, soumis aux contraintes PCI-DSS — aux équipes Hybrid Cloud d'<strong>IBM</strong>, où j'ai construit des démos techniques pour accompagner l'adoption du cloud chez des clients bancaires et industriels, jusqu'à une mission de <strong>mobilité internationale</strong> chez Orange Sonatel à Dakar.
+      </p>
+      <div class="pull-quote">
+        <p>« La fiabilité n'est pas un accident. C'est le résultat de l'automatisation, de l'observabilité et d'une culture production rigoureuse. »</p>
+        <cite>— Eugène Pascal Yaro · Principe de travail</cite>
+      </div>
+      <p>
+        Maîtrise de <strong>Kubernetes</strong> et <strong>OpenShift</strong> en environnement de production, approche GitOps avec ArgoCD et Helm, intégration des outils de sécurité (Fortify, BlackDuck, SonarQube) dans les pipelines CI/CD, et mise en place de stacks de monitoring Prometheus/Grafana pour garantir la disponibilité et détecter proactivement les anomalies.
+      </p>
+    </div>
+    <div class="profil-sidebar reveal rd2">
+      <div class="sidebar-box">
+        <div class="sidebar-box-label">Contact</div>
+        <div class="sidebar-box-item"><span class="sico">✉</span> eugenepascal.yaro@gmail.com</div>
+        <div class="sidebar-box-item"><span class="sico">📞</span> +33 6 20 17 47 49</div>
+        <div class="sidebar-box-item"><span class="sico">📍</span> Saint-Laurent-du-Var</div>
+        <div class="sidebar-box-item"><span class="sico">🇫🇷</span> Autorisé à travailler en France</div>
+      </div>
+      <div class="timeline-mini">
+        <div class="cover-sidebar-label">Chronologie</div>
+        <div class="tm-item">
+          <span class="tm-year">2024</span>
+          <div class="tm-content"><div class="tm-co">✈️ Amadeus</div><div class="tm-role">DevOps / SRE · Nice</div></div>
+        </div>
+        <div class="tm-item">
+          <span class="tm-year">2023</span>
+          <div class="tm-content"><div class="tm-co">🟠 Orange Sonatel</div><div class="tm-role">DevOps · Dakar 🇸🇳</div></div>
+        </div>
+        <div class="tm-item">
+          <span class="tm-year">2020</span>
+          <div class="tm-content"><div class="tm-co">⚙️ IBM</div><div class="tm-role">Hybrid Cloud · Montpellier</div></div>
+        </div>
+        <div class="tm-item">
+          <span class="tm-year">2020</span>
+          <div class="tm-content"><div class="tm-co">🎓 Télécom Saint-Étienne</div><div class="tm-role">Diplôme Ingénieur · Data Eng.</div></div>
+        </div>
+        <div class="tm-item">
+          <span class="tm-year">2018</span>
+          <div class="tm-content"><div class="tm-co">📡 IUT Clermont-Ferrand</div><div class="tm-role">DUT Réseaux & Télécoms</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="art-rule-thin"></div>
+
+<!-- ══ FORMATIONS ══ -->
+<section id="formations">
+  <div class="article-header reveal">
+    <div class="art-section-label">Section 02</div>
+    <h2 class="art-title">Formations</h2>
+    <div class="art-rule"></div>
+  </div>
+  <div class="formations-grid">
+    <div class="edu-col reveal rd1">
+      <div class="edu-num">01</div>
+      <div class="edu-year-tag">2020 — 2023</div>
+      <div class="edu-degree">École d'Ingénieur — Data Engineering</div>
+      <div class="edu-school">Télécom Saint-Étienne, France</div>
+      <div class="edu-body">Formation d'ingénieur avec une forte composante systèmes, cloud et data. Bases en Java, Python, architectures distribuées et gestion des données.</div>
+    </div>
+    <div class="edu-col reveal rd2">
+      <div class="edu-num">02</div>
+      <div class="edu-year-tag">2018 — 2020</div>
+      <div class="edu-degree">DUT Réseaux &amp; Télécommunications</div>
+      <div class="edu-school">IUT Clermont-Ferrand, France</div>
+      <div class="edu-body">Protocoles réseau, systèmes Linux, administration infrastructure et programmation — le point de départ naturel vers le DevOps.</div>
+    </div>
+    <div class="edu-col reveal rd3">
+      <div class="edu-num">03</div>
+      <div class="edu-year-tag">Certification</div>
+      <div class="edu-degree">Red Hat Certified Specialist</div>
+      <div class="edu-school">OpenShift Administration</div>
+      <div class="edu-body">Expertise validée en administration et déploiement sur OpenShift / Kubernetes en environnement cloud-native.</div>
+    </div>
+  </div>
+  <div class="cert-strip reveal">
+    <span class="cert-strip-ico">🎯</span>
+    <div>
+      <div class="cert-strip-label">Certification Red Hat</div>
+      <div class="cert-strip-name">Red Hat Certified Specialist in OpenShift Administration</div>
+      <div class="cert-strip-issuer">Red Hat — OpenShift Cloud Specialist · Kubernetes en environnement cloud-native</div>
+    </div>
+  </div>
+</section>
+<div class="art-rule-thin"></div>
+
+<!-- ══ EXPÉRIENCES ══ -->
+<section id="experiences">
+  <div class="article-header reveal">
+    <div class="art-section-label">Section 03</div>
+    <h2 class="art-title">Expériences professionnelles</h2>
+    <div class="art-rule"></div>
+  </div>
+  <div class="exp-feature">
+
+    <!-- AMADEUS -->
+    <div class="exp-feature-item reveal">
+      <div class="exp-left">
+        <span class="exp-co-emoji">✈️</span>
+        <div class="exp-co-name">Amadeus</div>
+        <div class="exp-period-tag">Fév 2024 — Déc 2025</div>
+        <div class="exp-loc">📍 Nice, France</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role-badge">Ingénieur DevOps / SRE</div>
+        <div class="exp-intro-text">
+          Évolution au cœur de la chaîne de réservation Amadeus — enjeux forts de <strong>performance, disponibilité et fiabilité</strong>. Environnement proche des contraintes PCI-DSS.
+        </div>
+        <div class="exp-cols">
+          <div class="exp-col">
+            <div class="exp-col-title">Développement &amp; CI/CD</div>
+            <ul>
+              <li>Microservice cloud-native from scratch (Java Quarkus) dans la chaîne de réservation.</li>
+              <li>Flux data temps réel : Kafka → Protobuf → MongoDB.</li>
+              <li>Pipelines Jenkins &amp; ArgoCD, approche GitOps + Helm sur K8s/OpenShift.</li>
+              <li>Sécurisation et standardisation des mises en production.</li>
+            </ul>
+          </div>
+          <div class="exp-col">
+            <div class="exp-col-title">Sécurité &amp; SRE</div>
+            <ul>
+              <li>SonarQube, Fortify, Black Duck, Prisma dans les pipelines CI/CD.</li>
+              <li>Validation automatisée avant MeP (PCI-DSS).</li>
+              <li>Supervision Kafka, observabilité Prometheus &amp; Grafana.</li>
+              <li>Scripts Bash/Python pour fiabiliser les opérations.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Java Quarkus</span><span class="exp-tag">Jenkins</span><span class="exp-tag">ArgoCD</span>
+          <span class="exp-tag">Helm</span><span class="exp-tag">Kubernetes</span><span class="exp-tag">OpenShift</span>
+          <span class="exp-tag">SonarQube</span><span class="exp-tag">Fortify</span><span class="exp-tag">BlackDuck</span>
+          <span class="exp-tag">Kafka</span><span class="exp-tag">Prometheus</span><span class="exp-tag">Grafana</span>
+          <span class="exp-tag">MongoDB</span><span class="exp-tag">PCI-DSS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IBM -->
+    <div class="exp-feature-item reveal rd1">
+      <div class="exp-left">
+        <span class="exp-co-emoji">⚙️</span>
+        <div class="exp-co-name">IBM</div>
+        <div class="exp-period-tag">2020 — 2023</div>
+        <div class="exp-loc">📍 Montpellier, France</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role-badge">Ingénieur DevOps — Hybrid Cloud</div>
+        <div class="exp-intro-text">
+          Équipe Hybrid Cloud IBM — construire des <strong>démonstrations techniques</strong> pour aider les clients à adopter les solutions cloud.
+        </div>
+        <div class="exp-cols">
+          <div class="exp-col">
+            <div class="exp-col-title">Cloud &amp; IaC</div>
+            <ul>
+              <li>Architectures Hybrid Cloud OpenShift/Kubernetes, serverless Knative.</li>
+              <li>Terraform (VPC, IAM, toolchains DevOps) + Ansible.</li>
+              <li>Automatisation mainframe : profils Zowe, DBB, z/OS.</li>
+            </ul>
+          </div>
+          <div class="exp-col">
+            <div class="exp-col-title">CI/CD &amp; Clients</div>
+            <ul>
+              <li>Plugin Groovy (Urban Code Deploy) : versioning auto Java.</li>
+              <li>Cas banque suédoise : pipeline build → maj pom.xml → push Git.</li>
+              <li>Démonstrations avant-vente clients.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">OpenShift</span><span class="exp-tag">Kubernetes</span><span class="exp-tag">Knative</span>
+          <span class="exp-tag">Terraform</span><span class="exp-tag">Ansible</span><span class="exp-tag">Groovy</span>
+          <span class="exp-tag">Zowe</span><span class="exp-tag">DBB</span><span class="exp-tag">AWS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORANGE -->
+    <div class="exp-feature-item reveal rd2">
+      <div class="exp-left">
+        <span class="exp-co-emoji">🟠</span>
+        <div class="exp-co-name">Orange<br>Sonatel</div>
+        <div class="exp-period-tag">Août–Sept 2023</div>
+        <div class="exp-loc">📍 Dakar, Sénégal 🇸🇳</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role-badge">DevOps — Mobilité Internationale</div>
+        <div class="exp-intro-text">
+          Mission de <strong>mobilité internationale</strong>. Contribution à la stratégie Cloud &amp; Multi-Cloud (AWS), déploiement Kubernetes via CNO.
+        </div>
+        <div class="exp-cols">
+          <div class="exp-col">
+            <div class="exp-col-title">Cloud</div>
+            <ul>
+              <li>Déploiement apps sur Kubernetes via plateforme CNO.</li>
+              <li>Orchestration clusters on-prem &amp; cloud, stratégie AWS.</li>
+            </ul>
+          </div>
+          <div class="exp-col">
+            <div class="exp-col-title">Industrialisation</div>
+            <ul>
+              <li>Guide de déploiement standardisé.</li>
+              <li>Amélioration exploitabilité apps cloud-native.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Kubernetes</span><span class="exp-tag">CNO</span>
+          <span class="exp-tag">AWS</span><span class="exp-tag">Multi-Cloud</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="art-rule-thin"></div>
+
+<!-- ══ COMPÉTENCES ══ -->
+<section id="competences">
+  <div class="article-header reveal">
+    <div class="art-section-label">Section 04</div>
+    <h2 class="art-title">Compétences techniques</h2>
+    <div class="art-rule"></div>
+  </div>
+  <div class="comp-layout reveal">
+    <div class="comp-grid">
+      <div class="comp-cat">
+        <div class="comp-cat-title">Cloud &amp; Orchestration</div>
+        <div class="comp-item"><span class="comp-name">Kubernetes</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div></div></div>
+        <div class="comp-item"><span class="comp-name">OpenShift</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Knative</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Docker</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div></div></div>
+      </div>
+      <div class="comp-cat">
+        <div class="comp-cat-title">CI/CD &amp; GitOps</div>
+        <div class="comp-item"><span class="comp-name">Jenkins</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div></div></div>
+        <div class="comp-item"><span class="comp-name">ArgoCD</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Helm</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">GitLab CI</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">IaC — Terraform</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Ansible</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+      </div>
+      <div class="comp-cat">
+        <div class="comp-cat-title">DevSecOps</div>
+        <div class="comp-item"><span class="comp-name">Fortify</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">BlackDuck</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">SonarQube</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Prisma</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Prometheus</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Grafana</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+      </div>
+      <div class="comp-cat">
+        <div class="comp-cat-title">Langages</div>
+        <div class="comp-item"><span class="comp-name">Java / Quarkus</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Python</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Bash</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div></div></div>
+        <div class="comp-item"><span class="comp-name">JavaScript</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div><div class="comp-dot"></div></div></div>
+        <div class="comp-item"><span class="comp-name">Groovy</span><div class="comp-dots"><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot fill"></div><div class="comp-dot"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="art-rule-thin"></div>
+
+<!-- ══ SOFT SKILLS ══ -->
+<section id="softskills">
+  <div class="soft-layout">
+    <div class="art-section-label reveal">Section 05</div>
+    <h2 class="art-title reveal" style="color:#fff;">Compétences humaines</h2>
+    <div class="art-rule reveal"></div>
+    <div class="soft-grid-mag">
+      <div class="soft-mag-item reveal rd1">
+        <span class="soft-mag-icon">🎯</span>
+        <div class="soft-mag-num">01</div>
+        <div class="soft-mag-title">Autonomie &amp; Initiative</div>
+        <div class="soft-mag-desc">Capable de prendre en charge des sujets complexes de façon indépendante, de proposer des solutions et d'aller au bout.</div>
+      </div>
+      <div class="soft-mag-item reveal rd2">
+        <span class="soft-mag-icon">🤝</span>
+        <div class="soft-mag-num">02</div>
+        <div class="soft-mag-title">Esprit d'équipe</div>
+        <div class="soft-mag-desc">À l'aise dans des équipes pluridisciplinaires, partage des connaissances et contribution à un environnement productif.</div>
+      </div>
+      <div class="soft-mag-item reveal rd3">
+        <span class="soft-mag-icon">🔍</span>
+        <div class="soft-mag-num">03</div>
+        <div class="soft-mag-title">Rigueur &amp; Culture prod</div>
+        <div class="soft-mag-desc">Sensibilité forte à la qualité du code et à la fiabilité. Les systèmes critiques méritent un niveau d'exigence élevé.</div>
+      </div>
+      <div class="soft-mag-item reveal rd1">
+        <span class="soft-mag-icon">💬</span>
+        <div class="soft-mag-num">04</div>
+        <div class="soft-mag-title">Communication</div>
+        <div class="soft-mag-desc">Expérience de l'accompagnement client chez IBM — capable de vulgariser des sujets techniques complexes.</div>
+      </div>
+      <div class="soft-mag-item reveal rd2">
+        <span class="soft-mag-icon">🌍</span>
+        <div class="soft-mag-num">05</div>
+        <div class="soft-mag-title">Adaptabilité</div>
+        <div class="soft-mag-desc">Grand groupe, mobilité Sénégal, mainframe et cloud-native. Capacité à s'adapter rapidement à tout contexte.</div>
+      </div>
+      <div class="soft-mag-item reveal rd3">
+        <span class="soft-mag-icon">⚡</span>
+        <div class="soft-mag-num">06</div>
+        <div class="soft-mag-title">Amélioration continue</div>
+        <div class="soft-mag-desc">Curiosité technique permanente, veille DevOps/Cloud active. Optimiser en permanence les processus et les outils.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="art-rule-thin"></div>
+
+<!-- ══ HOBBIES ══ -->
+<section id="hobbies">
+  <div class="article-header reveal">
+    <div class="art-section-label">Section 06</div>
+    <h2 class="art-title">En dehors du terminal</h2>
+    <div class="art-rule"></div>
+  </div>
+  <div class="hobbies-mag">
+    <div class="hobbies-masonry">
+      <div class="hobby-block featured reveal">
+        <span class="hobby-block-icon">📷</span>
+        <div class="hobby-block-name">Photographie</div>
+        <div class="hobby-block-desc">Capturer des instants, jouer avec la lumière et les perspectives. Un œil pour le détail qui se retrouve aussi dans le code.</div>
+        <span class="hobby-block-tag">Passion créative</span>
+      </div>
+      <div class="hobby-block reveal rd1">
+        <span class="hobby-block-icon">📚</span>
+        <div class="hobby-block-name">Lecture</div>
+        <div class="hobby-block-desc">Tech, philosophie, développement personnel. Toujours un livre en cours.</div>
+        <span class="hobby-block-tag">Curiosité</span>
+      </div>
+      <div class="hobby-block reveal rd2">
+        <span class="hobby-block-icon">🏋️</span>
+        <div class="hobby-block-name">Musculation</div>
+        <div class="hobby-block-desc">Discipline, rigueur, progression constante — un mindset qui se retrouve dans l'approche du travail au quotidien.</div>
+        <span class="hobby-block-tag">Discipline</span>
+      </div>
+      <div class="hobby-block reveal rd3">
+        <span class="hobby-block-icon">🏊</span>
+        <div class="hobby-block-name">Natation</div>
+        <div class="hobby-block-desc">Endurance et régularité.</div>
+        <span class="hobby-block-tag">Sport</span>
+      </div>
+      <div class="hobby-block featured reveal rd1">
+        <span class="hobby-block-icon">⚽</span>
+        <div class="hobby-block-name">Football</div>
+        <div class="hobby-block-desc">Stratégie collective, adaptabilité en temps réel et esprit d'équipe — les mêmes qualités qu'en environnement DevOps critique.</div>
+        <span class="hobby-block-tag">Équipe</span>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="art-rule-thin"></div>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="article-header reveal">
+    <div class="art-section-label">Section 07 · Contact</div>
+    <h2 class="art-title">Travaillons ensemble</h2>
+    <div class="art-rule"></div>
+  </div>
+  <div class="contact-spread">
+    <div class="contact-editorial reveal">
+      <h3>Prêt pour<br>votre prochain<br><em>déploiement</em> ↗</h3>
+      <p>Disponible pour des missions DevOps, Cloud & Production. Environnements à enjeux : performance, fiabilité, sécurité. Autorisé à travailler en France.</p>
+      <div class="contact-info-block">
+        <a href="mailto:eugenepascal.yaro@gmail.com" class="ci-row">
+          <span class="ci-label">Email</span>
+          <span class="ci-val">eugenepascal.yaro@gmail.com</span>
+        </a>
+        <a href="tel:+33620174749" class="ci-row">
+          <span class="ci-label">Téléphone</span>
+          <span class="ci-val">+33 6 20 17 47 49</span>
+        </a>
+        <div class="ci-row">
+          <span class="ci-label">Localisation</span>
+          <span class="ci-val">Saint-Laurent-du-Var, 06</span>
+        </div>
+        <div class="ci-row">
+          <span class="ci-label">Langues</span>
+          <span class="ci-val">Français · Anglais · Espagnol</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-poster reveal rd2">
+      <div class="cp-label">Fiche ingénieur · 2025</div>
+      <div class="cp-name">Eugène Pascal Yaro</div>
+      <div class="cp-role">Ingénieur DevOps / SRE · Cloud Native</div>
+      <div class="cp-divider"></div>
+      <div class="cp-row"><span class="cp-key">Statut</span><span class="cp-value green">● Disponible</span></div>
+      <div class="cp-row"><span class="cp-key">Expérience</span><span class="cp-value blue">5+ ans</span></div>
+      <div class="cp-row"><span class="cp-key">Spécialité</span><span class="cp-value blue">K8s · CI/CD · IaC</span></div>
+      <div class="cp-row"><span class="cp-key">Certif.</span><span class="cp-value">Red Hat OpenShift</span></div>
+      <div class="cp-row"><span class="cp-key">Missions</span><span class="cp-value">Amadeus · IBM · Orange</span></div>
+      <div class="cp-row"><span class="cp-key">Mobilité</span><span class="cp-value">🇫🇷 France + International</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DEVOPS<em>·</em>REVIEW</div>
+  <div class="footer-copy">Eugène Pascal Yaro · Ingénieur DevOps · 2025 · Tous droits réservés</div>
+  <div class="footer-copy">Vol. I · Nº 2025</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
